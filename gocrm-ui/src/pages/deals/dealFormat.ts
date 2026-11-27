@@ -1,5 +1,5 @@
 import { format, parseISO } from 'date-fns';
-import { formatDate, DATE_FALLBACK } from '@/utils/date';
+import { formatPersianCalendarDate, DATE_FALLBACK } from '@/utils/date';
 import type { Deal } from '@/types';
 
 /**
@@ -25,7 +25,7 @@ export const formatCalendarDate = (value: string | null | undefined, pattern = '
   if (!value) {
     return DATE_FALLBACK;
   }
-  return formatDate(parseISO(value), pattern);
+  // The API's Gregorian date-only string is parsed as local midnight, then rendered in the Persian calendar.\n  return formatPersianCalendarDate(parseISO(value), DATE_FALLBACK, {\n    day: 'numeric',\n    month: pattern.includes('MMM') ? 'short' : 'long',\n    ...(pattern.includes('yyyy') ? { year: 'numeric' as const } : {}),\n  });
 };
 
 /**

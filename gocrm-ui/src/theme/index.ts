@@ -1,154 +1,100 @@
 import { createTheme } from '@mui/material/styles';
+import { faIR } from '@mui/material/locale';
 import type { ThemeOptions } from '@mui/material/styles';
 import { DEFAULT_PRIMARY_COLOR, isDefaultPrimaryColor, resolvePrimaryColor } from './primaryColor';
 
 export { DEFAULT_PRIMARY_COLOR, resolvePrimaryColor } from './primaryColor';
 
 const themeOptions: ThemeOptions = {
+  direction: 'rtl',
   palette: {
     mode: 'light',
-    primary: {
-      main: '#1976d2',
-      light: '#42a5f5',
-      dark: '#1565c0',
-    },
-    secondary: {
-      main: '#dc004e',
-      light: '#e33371',
-      dark: '#9a0036',
-    },
-    background: {
-      default: '#f5f5f5',
-      paper: '#ffffff',
-    },
-    success: {
-      main: '#4caf50',
-    },
-    warning: {
-      main: '#ff9800',
-    },
-    error: {
-      main: '#f44336',
-    },
+    primary: { main: '#2563eb', light: '#60a5fa', dark: '#1d4ed8' },
+    secondary: { main: '#84cc16', light: '#a3e635', dark: '#65a30d' },
+    background: { default: '#f3f5f9', paper: '#ffffff' },
+    text: { primary: '#172033', secondary: '#68758b' },
+    success: { main: '#16a36a' },
+    warning: { main: '#e9a23b' },
+    error: { main: '#e05252' },
+    divider: '#e8ecf3',
   },
   typography: {
-    fontFamily: [
-      '-apple-system',
-      'BlinkMacSystemFont',
-      '"Segoe UI"',
-      'Roboto',
-      '"Helvetica Neue"',
-      'Arial',
-      'sans-serif',
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
-    ].join(','),
-    h1: {
-      fontSize: '2.5rem',
-      fontWeight: 500,
-    },
-    h2: {
-      fontSize: '2rem',
-      fontWeight: 500,
-    },
-    h3: {
-      fontSize: '1.75rem',
-      fontWeight: 500,
-    },
-    h4: {
-      fontSize: '1.5rem',
-      fontWeight: 500,
-    },
-    h5: {
-      fontSize: '1.25rem',
-      fontWeight: 500,
-    },
-    h6: {
-      fontSize: '1rem',
-      fontWeight: 500,
-    },
+    fontFamily: ['Vazirmatn', 'Tahoma', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'Arial', 'sans-serif'].join(','),
+    h1: { fontSize: '2.25rem', fontWeight: 800, letterSpacing: '-0.035em' },
+    h2: { fontSize: '1.9rem', fontWeight: 800, letterSpacing: '-0.03em' },
+    h3: { fontSize: '1.65rem', fontWeight: 750, letterSpacing: '-0.025em' },
+    h4: { fontSize: '1.45rem', fontWeight: 750, letterSpacing: '-0.02em' },
+    h5: { fontSize: '1.2rem', fontWeight: 700 },
+    h6: { fontSize: '1rem', fontWeight: 700 },
+    button: { textTransform: 'none', fontWeight: 650 },
   },
-  shape: {
-    borderRadius: 8,
-  },
+  shape: { borderRadius: 14 },
   components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        'html, body, #root': { minHeight: '100%', backgroundColor: '#f3f5f9' },
+        body: { margin: 0, color: '#172033', direction: 'rtl', textRendering: 'optimizeLegibility' },
+        '*': { boxSizing: 'border-box' },
+        '::selection': { background: 'rgba(37,99,235,0.16)' },
+      },
+    },
     MuiButton: {
       styleOverrides: {
-        root: {
-          textTransform: 'none',
-          fontWeight: 500,
-        },
+        root: { textTransform: 'none', fontWeight: 650, borderRadius: 10, boxShadow: 'none', minHeight: 38 },
+        contained: { '&:hover': { boxShadow: '0 6px 16px rgba(37,99,235,0.16)' } },
       },
     },
     MuiAppBar: {
-      defaultProps: {
-        elevation: 0,
-      },
-      styleOverrides: {
-        root: {
-          borderBottom: '1px solid',
-          borderBottomColor: 'rgba(0, 0, 0, 0.12)',
-        },
-      },
+      defaultProps: { elevation: 0 },
+      styleOverrides: { root: { borderBottom: '1px solid #e8ecf3' } },
     },
     MuiDrawer: {
-      styleOverrides: {
-        paper: {
-          borderRight: '1px solid',
-          borderRightColor: 'rgba(0, 0, 0, 0.12)',
-        },
-      },
+      styleOverrides: { paper: { borderColor: '#e8ecf3' } },
     },
     MuiCard: {
-      defaultProps: {
-        elevation: 1,
-      },
+      defaultProps: { elevation: 0 },
+      styleOverrides: { root: { border: '1px solid #e8ecf3', borderRadius: 16, boxShadow: '0 4px 18px rgba(20,35,65,0.035)', backgroundImage: 'none' } },
+    },
+    MuiPaper: {
+      styleOverrides: { rounded: { borderRadius: 16 }, root: { backgroundImage: 'none' } },
     },
     MuiTableCell: {
       styleOverrides: {
-        head: {
-          fontWeight: 600,
-        },
+        root: { borderColor: '#edf0f5', paddingTop: 12, paddingBottom: 12 },
+        head: { fontWeight: 700, color: '#68758b', backgroundColor: '#f7f9fc', whiteSpace: 'nowrap' },
       },
     },
+    MuiTableRow: { styleOverrides: { root: { '&:last-child td, &:last-child th': { borderBottom: 0 } } } },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: { borderRadius: 10, backgroundColor: '#fff', '& fieldset': { borderColor: '#e3e8f0' }, '&:hover fieldset': { borderColor: '#b8c5d8' } },
+      },
+    },
+    MuiInputLabel: { styleOverrides: { root: { color: '#68758b' } } },
+    MuiChip: { styleOverrides: { root: { borderRadius: 8, fontWeight: 600 } } },
+    MuiTabs: { styleOverrides: { indicator: { height: 3, borderRadius: 3 } } },
+    MuiDialog: { styleOverrides: { paper: { borderRadius: 18 } } },
+    MuiTooltip: { styleOverrides: { tooltip: { borderRadius: 8, fontSize: '0.75rem' } } },
   },
 };
 
-/**
- * The light theme with the given primary colour. The colour is validated
- * again (resolvePrimaryColor), so an unsupported value can never reach
- * createTheme. The default keeps its hand-picked light and dark variants; any
- * other colour passes only `main`, so MUI computes light, dark and
- * contrastText from it instead of keeping the default's stale variants.
- */
 export const createAppTheme = (colour: string = DEFAULT_PRIMARY_COLOR) => {
   const main = resolvePrimaryColor(colour);
   const primary = isDefaultPrimaryColor(main)
-    ? { main: DEFAULT_PRIMARY_COLOR, light: '#42a5f5', dark: '#1565c0' }
+    ? { main: DEFAULT_PRIMARY_COLOR, light: '#60a5fa', dark: '#1d4ed8' }
     : { main };
-  return createTheme({
-    ...themeOptions,
-    palette: { ...themeOptions.palette, primary },
-  });
+  return createTheme({ ...themeOptions, palette: { ...themeOptions.palette, primary } }, faIR);
 };
 
 export const theme = createAppTheme();
 
-// Dark theme variant
 export const darkTheme = createTheme({
   ...themeOptions,
   palette: {
     ...themeOptions.palette,
     mode: 'dark',
-    background: {
-      default: '#121212',
-      paper: '#1e1e1e',
-    },
-    primary: {
-      main: '#90caf9',
-      light: '#bbdefb',
-      dark: '#42a5f5',
-    },
+    background: { default: '#121826', paper: '#1b2433' },
+    text: { primary: '#f4f7fb', secondary: '#aab6c8' },
+    primary: { main: '#90b4ff', light: '#b4ccff', dark: '#5d8df0' },
   },
-});
+}, faIR);

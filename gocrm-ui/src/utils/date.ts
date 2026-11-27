@@ -60,3 +60,27 @@ export const localDateTimeToUTC = (value: string): string | undefined => {
   }
   return date.toISOString().replace(/\.\d{3}Z$/, 'Z');
 };
+
+/**
+ * Formats a date-only value for Persian users using the Intl Persian calendar.
+ * The API continues to exchange Gregorian YYYY-MM-DD values; only presentation
+ * changes here. This avoids changing stored dates or shifting them by timezone.
+ */
+export const formatPersianCalendarDate = (
+  value: DateInput,
+  fallback: string = DATE_FALLBACK,
+  options: Intl.DateTimeFormatOptions = {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    numberingSystem: 'arabext',
+  }
+): string => {
+  const date = toDate(value);
+  if (!date) return fallback;
+  return new Intl.DateTimeFormat('fa-IR-u-ca-persian', {
+    ...options,
+    calendar: 'persian',
+    numberingSystem: 'arabext',
+  }).format(date);
+};

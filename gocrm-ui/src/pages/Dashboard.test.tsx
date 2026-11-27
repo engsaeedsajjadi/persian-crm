@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, waitFor, within } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { MemoryRouter } from 'react-router-dom';
-import { Dashboard } from './Dashboard';
+import { داشبورد مدیریتی } from './داشبورد مدیریتی';
 import { createMockUser } from '@/test/factories';
 import type { User } from '@/types';
 import { formatDealAmount } from './deals/dealFormat';
@@ -76,7 +76,7 @@ const authState = (user: User) => ({
   refreshUser: vi.fn(),
 });
 
-const renderDashboard = () => {
+const renderداشبورد مدیریتی = () => {
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
@@ -88,13 +88,13 @@ const renderDashboard = () => {
   return render(
     <QueryClientProvider client={queryClient}>
       <MemoryRouter>
-        <Dashboard />
+        <داشبورد مدیریتی />
       </MemoryRouter>
     </QueryClientProvider>
   );
 };
 
-describe('Dashboard', () => {
+describe('داشبورد مدیریتی', () => {
   beforeEach(() => {
     mockUseAuth.mockReset();
     mockGetStats.mockReset();
@@ -147,66 +147,66 @@ describe('Dashboard', () => {
     async (role) => {
       mockUseAuth.mockReturnValue(authState(createMockUser({ role })));
 
-      renderDashboard();
+      renderداشبورد مدیریتی();
 
-      expect(await screen.findByText('Total Leads')).toBeInTheDocument();
-      expect(screen.getByText('Total Customers')).toBeInTheDocument();
-      expect(screen.getByText('Open Tickets')).toBeInTheDocument();
-      expect(screen.getByText('Pending Tasks')).toBeInTheDocument();
-      expect(screen.getByText('Conversion Rate')).toBeInTheDocument();
+      expect(await screen.findByText('کل سرنخ‌ها')).toBeInTheDocument();
+      expect(screen.getByText('کل مشتریان')).toBeInTheDocument();
+      expect(screen.getByText('تیکت‌های باز')).toBeInTheDocument();
+      expect(screen.getByText('پیگیری‌های در انتظار')).toBeInTheDocument();
+      expect(screen.getByText('نرخ تبدیل')).toBeInTheDocument();
       await waitFor(() => expect(mockGetStats).toHaveBeenCalled());
     }
   );
 
-  it.each(['admin', 'support'] as const)('offers the New Ticket quick action to %s', async (role) => {
+  it.each(['admin', 'support'] as const)('offers the ثبت تیکت quick action to %s', async (role) => {
     mockUseAuth.mockReturnValue(authState(createMockUser({ role })));
 
-    renderDashboard();
+    renderداشبورد مدیریتی();
 
-    expect(await screen.findByRole('button', { name: 'New Ticket' })).toBeInTheDocument();
+    expect(await screen.findByRole('button', { name: 'ثبت تیکت' })).toBeInTheDocument();
   });
 
   it.each(['sales', 'customer'] as const)(
-    'hides the New Ticket quick action from %s, whom the API refuses ticket creation',
+    'hides the ثبت تیکت quick action from %s, whom the API refuses ticket creation',
     async (role) => {
       mockUseAuth.mockReturnValue(authState(createMockUser({ role })));
 
-      renderDashboard();
+      renderداشبورد مدیریتی();
 
-      expect(await screen.findByText('Quick Actions')).toBeInTheDocument();
-      expect(screen.queryByRole('button', { name: 'New Ticket' })).not.toBeInTheDocument();
-      expect(screen.getByRole('button', { name: 'New Task' })).toBeInTheDocument();
+      expect(await screen.findByText('دسترسی سریع')).toBeInTheDocument();
+      expect(screen.queryByRole('button', { name: 'ثبت تیکت' })).not.toBeInTheDocument();
+      expect(screen.getByRole('button', { name: 'ثبت پیگیری' })).toBeInTheDocument();
     }
   );
 
   it('does not fetch or render stats for the customer role', async () => {
     mockUseAuth.mockReturnValue(authState(createMockUser({ role: 'customer' })));
 
-    renderDashboard();
+    renderداشبورد مدیریتی();
 
     // The welcome heading still renders.
-    expect(screen.getByText('Dashboard')).toBeInTheDocument();
+    expect(screen.getByText('داشبورد مدیریتی')).toBeInTheDocument();
 
     // No stats cards and no request to the forbidden endpoint.
-    expect(screen.queryByText('Total Leads')).not.toBeInTheDocument();
-    expect(screen.queryByText('Total Customers')).not.toBeInTheDocument();
-    expect(screen.queryByText('Conversion Rate')).not.toBeInTheDocument();
+    expect(screen.queryByText('کل سرنخ‌ها')).not.toBeInTheDocument();
+    expect(screen.queryByText('کل مشتریان')).not.toBeInTheDocument();
+    expect(screen.queryByText('نرخ تبدیل')).not.toBeInTheDocument();
     await waitFor(() => expect(mockGetStats).not.toHaveBeenCalled());
   });
 
   it('renders recent activities and upcoming tasks for the admin role', async () => {
     mockUseAuth.mockReturnValue(authState(createMockUser({ role: 'admin' })));
 
-    renderDashboard();
+    renderداشبورد مدیریتی();
 
-    expect(await screen.findByText('Recent Activities')).toBeInTheDocument();
+    expect(await screen.findByText('فعالیت‌های اخیر')).toBeInTheDocument();
     expect(await screen.findByText('New lead created')).toBeInTheDocument();
 
-    expect(screen.getByText('Upcoming Tasks')).toBeInTheDocument();
+    expect(screen.getByText('پیگیری‌های پیش‌رو')).toBeInTheDocument();
     expect(await screen.findByText('Call the customer back')).toBeInTheDocument();
     expect(screen.getByText('high')).toBeInTheDocument();
 
-    expect(screen.getByText('Sales Performance')).toBeInTheDocument();
+    expect(screen.getByText('عملکرد فروش')).toBeInTheDocument();
 
     await waitFor(() => {
       expect(mockGetRecentActivities).toHaveBeenCalledWith(10);
@@ -220,9 +220,9 @@ describe('Dashboard', () => {
     mockGetUpcomingTasks.mockResolvedValue([]);
     mockUseAuth.mockReturnValue(authState(createMockUser({ role: 'sales' })));
 
-    renderDashboard();
+    renderداشبورد مدیریتی();
 
-    expect(await screen.findByText('Recent Activities')).toBeInTheDocument();
+    expect(await screen.findByText('فعالیت‌های اخیر')).toBeInTheDocument();
     const emptyLines = await screen.findAllByText('Nothing yet');
     expect(emptyLines).toHaveLength(2);
   });
@@ -230,11 +230,11 @@ describe('Dashboard', () => {
   it('calls no dashboard endpoints and shows no panels for the customer role', async () => {
     mockUseAuth.mockReturnValue(authState(createMockUser({ role: 'customer' })));
 
-    renderDashboard();
+    renderداشبورد مدیریتی();
 
-    expect(screen.queryByText('Sales Performance')).not.toBeInTheDocument();
-    expect(screen.queryByText('Recent Activities')).not.toBeInTheDocument();
-    expect(screen.queryByText('Upcoming Tasks')).not.toBeInTheDocument();
+    expect(screen.queryByText('عملکرد فروش')).not.toBeInTheDocument();
+    expect(screen.queryByText('فعالیت‌های اخیر')).not.toBeInTheDocument();
+    expect(screen.queryByText('پیگیری‌های پیش‌رو')).not.toBeInTheDocument();
 
     await waitFor(() => {
       expect(mockGetStats).not.toHaveBeenCalled();
@@ -248,13 +248,13 @@ describe('Dashboard', () => {
   // send a caller without it to /unauthorized.
   it('hides View Customers from a caller without customers.view', async () => {
     mockUseAuth.mockReturnValue(authState(createMockUser({ role: 'customer' })));
-    const customerView = renderDashboard();
-    expect(await screen.findByRole('button', { name: 'New Task' })).toBeInTheDocument();
+    const customerView = renderداشبورد مدیریتی();
+    expect(await screen.findByRole('button', { name: 'ثبت پیگیری' })).toBeInTheDocument();
     expect(screen.queryByRole('button', { name: 'View Customers' })).not.toBeInTheDocument();
     customerView.unmount();
 
     mockUseAuth.mockReturnValue(authState(createMockUser({ role: 'support' })));
-    renderDashboard();
+    renderداشبورد مدیریتی();
     expect(await screen.findByRole('button', { name: 'View Customers' })).toBeInTheDocument();
   });
 
@@ -264,7 +264,7 @@ describe('Dashboard', () => {
       async (role) => {
         mockUseAuth.mockReturnValue(authState(createMockUser({ role })));
 
-        renderDashboard();
+        renderداشبورد مدیریتی();
 
         expect(await screen.findByRole('heading', { name: 'Pipeline by stage' })).toBeInTheDocument();
         expect(await screen.findByTestId('pipeline-default-total')).toHaveTextContent(
@@ -289,7 +289,7 @@ describe('Dashboard', () => {
       mockGetUIConfigurations.mockResolvedValue([{ key: 'deals.default_currency', value: 'usd' }]);
       mockUseAuth.mockReturnValue(authState(createMockUser({ role: 'admin' })));
 
-      renderDashboard();
+      renderداشبورد مدیریتی();
 
       await waitFor(() =>
         expect(screen.getByTestId('pipeline-default-total')).toHaveTextContent(
@@ -311,7 +311,7 @@ describe('Dashboard', () => {
       });
       mockUseAuth.mockReturnValue(authState(createMockUser({ role: 'sales' })));
 
-      renderDashboard();
+      renderداشبورد مدیریتی();
 
       expect(await screen.findByText('No open deals yet')).toBeInTheDocument();
       expect(screen.getByText('No deals won yet this month')).toBeInTheDocument();
@@ -323,7 +323,7 @@ describe('Dashboard', () => {
       mockGetPipeline.mockRejectedValue({ response: { status: 500, data: { code: 'INTERNAL_ERROR', message: 'Internal server error' } } });
       mockUseAuth.mockReturnValue(authState(createMockUser({ role: 'admin' })));
 
-      renderDashboard();
+      renderداشبورد مدیریتی();
 
       const chart = await screen.findByRole('region', { name: 'Pipeline by stage' });
       expect(await within(chart).findByText('Pipeline could not be loaded')).toBeInTheDocument();
@@ -339,12 +339,12 @@ describe('Dashboard', () => {
       async (role) => {
         mockUseAuth.mockReturnValue(authState(createMockUser({ role })));
 
-        renderDashboard();
+        renderداشبورد مدیریتی();
 
-        expect(screen.getByText('Dashboard')).toBeInTheDocument();
+        expect(screen.getByText('داشبورد مدیریتی')).toBeInTheDocument();
         if (role === 'support') {
           // The rest of the dashboard still loads for support.
-          expect(await screen.findByText('Total Leads')).toBeInTheDocument();
+          expect(await screen.findByText('کل سرنخ‌ها')).toBeInTheDocument();
         }
         expect(screen.queryByText('Pipeline by stage')).not.toBeInTheDocument();
         expect(screen.queryByText('Won this month')).not.toBeInTheDocument();

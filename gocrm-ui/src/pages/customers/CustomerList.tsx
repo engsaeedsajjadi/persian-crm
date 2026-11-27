@@ -22,7 +22,7 @@ import { Loading } from '@/components/Loading';
 import { useSnackbar } from '@/hooks/useSnackbar';
 import { customersApi, type CustomerFilters } from '@/api/endpoints';
 import type { Customer } from '@/types';
-import { formatDate } from '@/utils/date';
+import { formatPersianCalendarDate } from '@/utils/date';
 
 // The row's identity, shared by its overflow-menu label and the accessible
 // names of its view, edit and delete buttons.
@@ -104,7 +104,7 @@ export const Component: React.FC = () => {
       id: 'created_at',
       label: 'Customer Since',
       minWidth: 120,
-      format: (value: string) => formatDate(value, 'MMM dd, yyyy'),
+      format: (value: string) => formatPersianCalendarDate(value),
     },
   ], []);
 

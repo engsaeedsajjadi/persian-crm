@@ -18,7 +18,7 @@ describe('dealFormat', () => {
   });
 
   it('renders a YYYY-MM-DD date on the stored day, whatever the zone', () => {
-    expect(formatCalendarDate('2026-12-15')).toBe('Dec 15, 2026');
+    expect(formatCalendarDate('2026-12-15')).toMatch(/۱۵ آذر ۱۴۰۵/);
     expect(formatCalendarDate(null)).toBe('—');
   });
 

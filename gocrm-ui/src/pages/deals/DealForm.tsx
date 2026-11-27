@@ -20,7 +20,7 @@ import {
   TextField as MuiTextField,
 } from '@mui/material';
 import { Save as SaveIcon, Cancel as CancelIcon } from '@mui/icons-material';
-import { FormTextField } from '@/components/form';
+import { FormTextField, FormDatePicker } from '@/components/form';
 import { CompanyAutocomplete } from '@/components/CompanyAutocomplete';
 import { CustomerAutocomplete } from '@/components/CustomerAutocomplete';
 import { LeadAutocomplete } from '@/components/LeadAutocomplete';
@@ -439,11 +439,9 @@ export const Component: React.FC = () => {
                     />
                   )}
                 />
-                <FormTextField
+                <FormDatePicker
                   name="expected_close_date"
-                  label="Expected close"
-                  type="date"
-                  InputLabelProps={{ shrink: true }}
+                  label="تاریخ پیش‌بینی‌شده بستن معامله"
                 />
               </Box>
 

@@ -52,14 +52,14 @@ interface StatCardProps {
 
 const StatCard: React.FC<StatCardProps> = ({ title, value, icon, color, trend }) => {
   return (
-    <Card>
-      <CardContent>
+    <Card sx={{ height: '100%', overflow: 'hidden', position: 'relative', '&:before': { content: '""', position: 'absolute', insetInlineStart: 0, top: 0, bottom: 0, width: 4, bgcolor: color, borderRadius: '0 4px 4px 0' } }}>
+      <CardContent sx={{ p: 2.5, '&:last-child': { pb: 2.5 } }}>
         <Box display="flex" alignItems="center" justifyContent="space-between">
           <Box>
             <Typography color="textSecondary" gutterBottom variant="body2">
               {title}
             </Typography>
-            <Typography variant="h4" component="div">
+            <Typography variant="h4" component="div" sx={{ fontWeight: 800, color: '#172033', fontVariantNumeric: 'tabular-nums' }}>
               {value}
             </Typography>
             {trend !== undefined && (
@@ -80,7 +80,7 @@ const StatCard: React.FC<StatCardProps> = ({ title, value, icon, color, trend })
               </Box>
             )}
           </Box>
-          <Avatar sx={{ bgcolor: color, width: 56, height: 56 }}>
+          <Avatar sx={{ bgcolor: color, width: 48, height: 48, borderRadius: 3, boxShadow: '0 6px 16px rgba(37,99,235,0.12)' }}>
             {icon}
           </Avatar>
         </Box>
@@ -147,9 +147,17 @@ export const Dashboard: React.FC = () => {
 
   return (
     <Box>
-      <Typography variant="h4" gutterBottom>
-        Dashboard
-      </Typography>
+      <Box sx={{ display: 'flex', alignItems: { xs: 'flex-start', md: 'center' }, justifyContent: 'space-between', flexWrap: 'wrap', gap: 1.5, mb: 3 }}>
+        <Box>
+          <Typography variant="h4" gutterBottom sx={{ fontWeight: 800, letterSpacing: '-0.03em', color: '#172033' }}>
+            داشبورد مدیریتی
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            نمای کلی عملکرد فروش، مشتریان و فعالیت‌های تیم
+          </Typography>
+        </Box>
+        <Chip label="گزارش ماه جاری" variant="outlined" sx={{ bgcolor: '#fff', borderColor: '#e3e8f0', fontWeight: 600 }} />
+      </Box>
       
       {/* Stats Cards (hidden for customer-role users, who may not read them) */}
       {canViewStats && (
@@ -166,7 +174,7 @@ export const Dashboard: React.FC = () => {
             <Skeleton variant="rectangular" height={140} />
           ) : (
             <StatCard
-              title="Total Leads"
+              title="کل سرنخ‌ها"
               value={stats?.total_leads || 0}
               icon={<ContactPhone />}
               color="primary.main"
@@ -179,7 +187,7 @@ export const Dashboard: React.FC = () => {
             <Skeleton variant="rectangular" height={140} />
           ) : (
             <StatCard
-              title="Total Customers"
+              title="کل مشتریان"
               value={stats?.total_customers || 0}
               icon={<Business />}
               color="success.main"
@@ -192,7 +200,7 @@ export const Dashboard: React.FC = () => {
             <Skeleton variant="rectangular" height={140} />
           ) : (
             <StatCard
-              title="Open Tickets"
+              title="تیکت‌های باز"
               value={stats?.open_tickets || 0}
               icon={<Assignment />}
               color="warning.main"
@@ -205,7 +213,7 @@ export const Dashboard: React.FC = () => {
             <Skeleton variant="rectangular" height={140} />
           ) : (
             <StatCard
-              title="Pending Tasks"
+              title="پیگیری‌های در انتظار"
               value={stats?.pending_tasks || 0}
               icon={<Task />}
               color="info.main"
@@ -217,7 +225,7 @@ export const Dashboard: React.FC = () => {
             <Skeleton variant="rectangular" height={140} />
           ) : (
             <StatCard
-              title="Conversion Rate"
+              title="نرخ تبدیل"
               value={`${(stats?.conversion_rate || 0).toFixed(1)}%`}
               icon={<TrendingUp />}
               color="success.main"
@@ -248,10 +256,10 @@ export const Dashboard: React.FC = () => {
         </Box>
       )}
 
-      {/* Quick Actions Panel */}
+      {/* دسترسی سریع Panel */}
       <Paper sx={{ p: 2, mb: 3 }}>
         <Typography variant="h6" gutterBottom>
-          Quick Actions
+          دسترسی سریع
         </Typography>
         <Box display="flex" gap={2} flexWrap="wrap">
           <Button
@@ -259,7 +267,7 @@ export const Dashboard: React.FC = () => {
             startIcon={<PersonAddIcon />}
             onClick={() => navigate('/leads/new')}
           >
-            New Lead
+            ثبت سرنخ جدید
           </Button>
           {canCreateTicket && (
             <Button
@@ -268,7 +276,7 @@ export const Dashboard: React.FC = () => {
               startIcon={<TicketIcon />}
               onClick={() => navigate('/tickets/new')}
             >
-              New Ticket
+              ثبت تیکت
             </Button>
           )}
           <Button
@@ -277,7 +285,7 @@ export const Dashboard: React.FC = () => {
             startIcon={<NoteAddIcon />}
             onClick={() => navigate('/tasks/new')}
           >
-            New Task
+            ثبت پیگیری
           </Button>
           {canViewCustomers && (
             <Button
@@ -285,7 +293,7 @@ export const Dashboard: React.FC = () => {
               startIcon={<Business />}
               onClick={() => navigate('/customers')}
             >
-              View Customers
+              مشاهده مشتریان
             </Button>
           )}
         </Box>
@@ -295,11 +303,11 @@ export const Dashboard: React.FC = () => {
       {canViewStats && (
       <Stack spacing={3}>
         <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 3 }}>
-          {/* Sales Performance Chart */}
+          {/* عملکرد فروش Chart */}
           <Box sx={{ flex: { xs: '1 1 100%', md: '1 1 calc(66.666% - 12px)' } }}>
             <Paper sx={{ p: 2 }}>
               <Typography variant="h6" gutterBottom>
-                Sales Performance
+                عملکرد فروش
               </Typography>
               {salesLoading && <Skeleton variant="rectangular" height={300} />}
               {salesData && (
@@ -325,12 +333,12 @@ export const Dashboard: React.FC = () => {
             </Paper>
           </Box>
 
-          {/* Recent Activities and Upcoming Tasks */}
+          {/* فعالیت‌های اخیر and پیگیری‌های پیش‌رو */}
           <Box sx={{ flex: { xs: '1 1 100%', md: '1 1 calc(33.333% - 12px)' } }}>
             <Stack spacing={3} sx={{ height: '100%' }}>
               <Paper sx={{ p: 2 }}>
                 <Typography variant="h6" gutterBottom>
-                  Recent Activities
+                  فعالیت‌های اخیر
                 </Typography>
                 {activitiesLoading ? (
                   <Skeleton variant="rectangular" height={140} />
@@ -346,12 +354,12 @@ export const Dashboard: React.FC = () => {
                     ))}
                   </List>
                 ) : (
-                  <Typography color="text.secondary">Nothing yet</Typography>
+                  <Typography color="text.secondary">موردی برای نمایش وجود ندارد</Typography>
                 )}
               </Paper>
               <Paper sx={{ p: 2 }}>
                 <Typography variant="h6" gutterBottom>
-                  Upcoming Tasks
+                  پیگیری‌های پیش‌رو
                 </Typography>
                 {upcomingTasksLoading ? (
                   <Skeleton variant="rectangular" height={140} />
@@ -367,13 +375,13 @@ export const Dashboard: React.FC = () => {
                       >
                         <ListItemText
                           primary={task.title}
-                          secondary={`Due ${formatDate(task.due_date, 'MMM dd, yyyy')}`}
+                          secondary={`سررسید ${formatDate(task.due_date, 'MMM dd, yyyy')}`}
                         />
                       </ListItem>
                     ))}
                   </List>
                 ) : (
-                  <Typography color="text.secondary">Nothing yet</Typography>
+                  <Typography color="text.secondary">موردی برای نمایش وجود ندارد</Typography>
                 )}
               </Paper>
             </Stack>
