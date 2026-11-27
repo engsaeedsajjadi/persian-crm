@@ -42,18 +42,18 @@ describe('MainLayout', () => {
     vi.clearAllMocks();
   });
 
-  it('shows the Automation group for admin and sales and hides it for support and customer', async () => {
+  it('shows the اتوماسیون group for admin and sales and hides it for support and customer', async () => {
     for (const role of ['admin', 'sales'] as const) {
       mockUseAuth.mockReturnValue(authState(createMockUser({ role })));
       const view = render(<MainLayout />);
 
-      await userEvent.click(navigation().getByText('Automation'));
-      expect(await navigation().findByText('Runs', {}, { timeout: 15000 })).toBeInTheDocument();
-      // Rules are admin-only on the API.
+      await userEvent.click(navigation().getByText('اتوماسیون'));
+      expect(await navigation().findByText('اجراها', {}, { timeout: 15000 })).toBeInTheDocument();
+      // قوانین are admin-only on the API.
       if (role === 'admin') {
-        expect(navigation().getByText('Rules')).toBeInTheDocument();
+        expect(navigation().getByText('قوانین')).toBeInTheDocument();
       } else {
-        expect(navigation().queryByText('Rules')).not.toBeInTheDocument();
+        expect(navigation().queryByText('قوانین')).not.toBeInTheDocument();
       }
       view.unmount();
     }
@@ -62,7 +62,7 @@ describe('MainLayout', () => {
       mockUseAuth.mockReturnValue(authState(createMockUser({ role })));
       const view = render(<MainLayout />);
 
-      expect(navigation().queryByText('Automation')).not.toBeInTheDocument();
+      expect(navigation().queryByText('اتوماسیون')).not.toBeInTheDocument();
       view.unmount();
     }
   }, 30000);
@@ -74,15 +74,15 @@ describe('MainLayout', () => {
     expect(screen.getByTestId('notification-bell')).toBeInTheDocument();
   }, 30000);
 
-  it('shows the Products and Quotes navigation entries for admin and sales and hides them for support and customer', () => {
+  it('shows the محصولات and پیش‌فاکتورها navigation entries for admin and sales and hides them for support and customer', () => {
     for (const role of ['admin', 'sales'] as const) {
       mockUseAuth.mockReturnValue(authState(createMockUser({ role })));
       const view = render(<MainLayout />);
 
-      expect(navigation().getByText('Products')).toBeInTheDocument();
-      expect(navigation().getByText('Quotes')).toBeInTheDocument();
-      // The entries sit with the other sales items, next to Deals.
-      expect(navigation().getByText('Deals')).toBeInTheDocument();
+      expect(navigation().getByText('محصولات')).toBeInTheDocument();
+      expect(navigation().getByText('پیش‌فاکتورها')).toBeInTheDocument();
+      // The entries sit with the other sales items, next to معاملات.
+      expect(navigation().getByText('معاملات')).toBeInTheDocument();
       view.unmount();
     }
 
@@ -90,46 +90,46 @@ describe('MainLayout', () => {
       mockUseAuth.mockReturnValue(authState(createMockUser({ role })));
       const view = render(<MainLayout />);
 
-      expect(navigation().queryByText('Products')).not.toBeInTheDocument();
-      expect(navigation().queryByText('Quotes')).not.toBeInTheDocument();
+      expect(navigation().queryByText('محصولات')).not.toBeInTheDocument();
+      expect(navigation().queryByText('پیش‌فاکتورها')).not.toBeInTheDocument();
       // The shell itself still renders for them.
-      expect(navigation().getByText('Dashboard')).toBeInTheDocument();
-      expect(navigation().getByText('Tasks')).toBeInTheDocument();
+      expect(navigation().getByText('داشبورد')).toBeInTheDocument();
+      expect(navigation().getByText('پیگیری‌ها')).toBeInTheDocument();
       view.unmount();
     }
   }, 30000);
 
-  it('shows Tickets to admin, sales and support and hides it from customer', () => {
+  it('shows تیکت‌ها to admin, sales and support and hides it from customer', () => {
     for (const role of ['admin', 'sales', 'support'] as const) {
       mockUseAuth.mockReturnValue(authState(createMockUser({ role })));
       const view = render(<MainLayout />);
 
-      expect(navigation().getByText('Tickets')).toBeInTheDocument();
+      expect(navigation().getByText('تیکت‌ها')).toBeInTheDocument();
       view.unmount();
     }
 
     mockUseAuth.mockReturnValue(authState(createMockUser({ role: 'customer' })));
     render(<MainLayout />);
-    expect(navigation().queryByText('Tickets')).not.toBeInTheDocument();
+    expect(navigation().queryByText('تیکت‌ها')).not.toBeInTheDocument();
   }, 30000);
 
   it('keeps the existing role-gated entries as they were', () => {
     mockUseAuth.mockReturnValue(authState(createMockUser({ role: 'support' })));
     render(<MainLayout />);
 
-    expect(navigation().queryByText('Deals')).not.toBeInTheDocument();
-    expect(navigation().getByText('Tickets')).toBeInTheDocument();
-    expect(navigation().getByText('Companies')).toBeInTheDocument();
-    expect(navigation().queryByText('Users')).not.toBeInTheDocument();
+    expect(navigation().queryByText('معاملات')).not.toBeInTheDocument();
+    expect(navigation().getByText('تیکت‌ها')).toBeInTheDocument();
+    expect(navigation().getByText('شرکت‌ها')).toBeInTheDocument();
+    expect(navigation().queryByText('کاربران')).not.toBeInTheDocument();
   }, 30000);
 
-  it('names the app bar account button and opens the menu with Logout', async () => {
+  it('names the app bar account button and opens the menu with خروج از حساب', async () => {
     mockUseAuth.mockReturnValue(authState(createMockUser({ role: 'admin' })));
     render(<MainLayout />);
 
-    const accountButton = screen.getByRole('button', { name: 'Account menu' });
+    const accountButton = screen.getByRole('button', { name: 'منوی حساب کاربری' });
     await userEvent.click(accountButton);
-    expect(await screen.findByRole('menuitem', { name: 'Logout' })).toBeInTheDocument();
+    expect(await screen.findByRole('menuitem', { name: 'خروج از حساب' })).toBeInTheDocument();
   }, 30000);
 
   it.each([
@@ -140,8 +140,8 @@ describe('MainLayout', () => {
     mockUseAuth.mockReturnValue({ ...authState(createMockUser({ role: 'admin' })), logout });
     render(<MainLayout />);
 
-    await userEvent.click(screen.getByRole('button', { name: 'Account menu' }));
-    await userEvent.click(await screen.findByRole('menuitem', { name: 'Logout' }));
+    await userEvent.click(screen.getByRole('button', { name: 'منوی حساب کاربری' }));
+    await userEvent.click(await screen.findByRole('menuitem', { name: 'خروج از حساب' }));
     expect(logout).toHaveBeenCalledTimes(1);
     if (leaving) {
       expect(mockNavigate).not.toHaveBeenCalledWith('/login');
