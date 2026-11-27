@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { IconButton, Popover, Stack, TextField, Typography, Button, Box } from '@mui/material';
 import { ChevronLeft, ChevronRight, CalendarMonth } from '@mui/icons-material';
 import { Controller, useFormContext } from 'react-hook-form';
+import { format } from 'date-fns';
 import { formatPersianCalendarDate, toDate } from '@/utils/date';
 import type { DateInput } from '@/utils/date';
 
@@ -98,8 +99,13 @@ export const FormDatePicker: React.FC<FormDatePickerProps> = ({ name, label, min
         }).replace(/\u200e/g, '').replace(/-/g, '/') : '';
         const displayedValue = draft || formattedValue;
 
+        const emitDate = (date: Date | null) => {
+          if (date === null) { onChange(typeof value === 'string' ? '' : null); return; }
+          const localDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+          onChange(typeof value === 'string' ? format(localDate, 'yyyy-MM-dd') : localDate);
+        };
         const choose = (date: Date) => {
-          onChange(new Date(date.getFullYear(), date.getMonth(), date.getDate()));
+          emitDate(date);
           setDraft('');
           setAnchor(null);
         };
@@ -115,8 +121,8 @@ export const FormDatePicker: React.FC<FormDatePickerProps> = ({ name, label, min
                 const text = event.target.value;
                 const parsed = parsePersianCalendarInput(text);
                 setDraft(text);
-                if (parsed) { onChange(parsed); setDraft(''); }
-                else if (text.trim() === '') { onChange(null); setDraft(''); }
+                if (parsed) { emitDate(parsed); setDraft(''); }
+                else if (text.trim() === '') { emitDate(null); setDraft(''); }
               }}
               onBlur={() => { fieldOnBlur(); if (draft && !parsePersianCalendarInput(draft)) setDraft(''); }}
               error={!!error}
@@ -161,7 +167,7 @@ export const FormDatePicker: React.FC<FormDatePickerProps> = ({ name, label, min
                 </Box>
                 <Stack direction="row" justifyContent="space-between" sx={{ mt: 1 }}>
                   <Button size="small" onClick={() => choose(new Date())}>امروز</Button>
-                  <Button size="small" onClick={() => { onChange(null); setDraft(''); setAnchor(null); }}>پاک کردن</Button>
+                  <Button size="small" onClick={() => { emitDate(null); setDraft(''); setAnchor(null); }}>پاک کردن</Button>
                 </Stack>
               </Box>
             </Popover>
