@@ -58,7 +58,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { usePermissions } from '@/hooks/usePermissions';
 import { useProductName } from '@/hooks/useProductName';
 
-const drawerWidth = 280;
+const drawerWidth = 264;
 
 interface NavEntry {
   title: string;
@@ -73,19 +73,19 @@ type NavItem = NavLink | (NavEntry & { children: NavLink[]; path?: undefined });
 
 const navItems: NavItem[] = [
   {
-    title: 'Dashboard',
+    title: 'داشبورد',
     path: '/',
     icon: <Dashboard />,
   },
   {
-    title: 'Leads',
+    title: 'سرنخ‌ها',
     path: '/leads',
     icon: <ContactPhone />,
     permission: 'leads.view',
   },
   {
     // Shown to a caller that may read deals.
-    title: 'Deals',
+    title: 'معاملات',
     path: '/deals',
     icon: <Handshake />,
     permission: 'deals.view',
@@ -93,14 +93,14 @@ const navItems: NavItem[] = [
   {
     // Shown to a caller that may read the catalogue; the page itself narrows
     // the writes.
-    title: 'Products',
+    title: 'محصولات',
     path: '/products',
     icon: <Inventory2 />,
     permission: 'products.view',
   },
   {
     // Shown to a caller that may read quotes.
-    title: 'Quotes',
+    title: 'پیش‌فاکتورها',
     path: '/quotes',
     icon: <RequestQuote />,
     permission: 'quotes.view',
@@ -109,18 +109,18 @@ const navItems: NavItem[] = [
     // The group shows when either child does: the rules need
     // automation.rules_manage, the run history automation.runs_view (the API
     // narrows a caller at scope own to its own leads and deals).
-    title: 'Automation',
+    title: 'اتوماسیون',
     icon: <AutoMode />,
     permission: ['automation.rules_manage', 'automation.runs_view'],
     children: [
       {
-        title: 'Rules',
+        title: 'قوانین',
         path: '/automation/rules',
         icon: <Rule />,
         permission: 'automation.rules_manage',
       },
       {
-        title: 'Runs',
+        title: 'اجراها',
         path: '/automation/runs',
         icon: <History />,
         permission: 'automation.runs_view',
@@ -128,14 +128,14 @@ const navItems: NavItem[] = [
     ],
   },
   {
-    title: 'Customers',
+    title: 'مشتریان',
     path: '/customers',
     icon: <Business />,
     permission: 'customers.view',
   },
   {
     // Shown to a caller that may read companies.
-    title: 'Companies',
+    title: 'شرکت‌ها',
     path: '/companies',
     icon: <Apartment />,
     permission: 'companies.view',
@@ -144,19 +144,19 @@ const navItems: NavItem[] = [
     // Shown with tickets.view. A caller holding only tickets.view_own_customer
     // gets no entry, although the route admits it. The ticket pages narrow
     // create, edit and delete by their own keys.
-    title: 'Tickets',
+    title: 'تیکت‌ها',
     path: '/tickets',
     icon: <Assignment />,
     permission: 'tickets.view',
   },
   {
-    title: 'Tasks',
+    title: 'پیگیری‌ها',
     path: '/tasks',
     icon: <Task />,
     permission: 'tasks.view',
   },
   {
-    title: 'Labels',
+    title: 'برچسب‌ها',
     path: '/labels',
     icon: <LocalOffer />,
     permission: 'labels.view',
@@ -164,7 +164,7 @@ const navItems: NavItem[] = [
   {
     // Web forms served to external sites. A caller without forms.manage sees
     // the pages read-only.
-    title: 'Forms',
+    title: 'فرم‌ها',
     path: '/forms',
     icon: <DynamicForm />,
     permission: 'forms.view',
@@ -172,7 +172,7 @@ const navItems: NavItem[] = [
   {
     // Answer Engine Optimization. A caller without aeo.view never sees the
     // entry and is bounced by the route guard.
-    title: 'AEO',
+    title: 'تحلیل محتوا',
     icon: <Insights />,
     permission: 'aeo.view',
     children: [
@@ -182,24 +182,24 @@ const navItems: NavItem[] = [
         icon: <Timeline />,
       },
       {
-        title: 'Prompts',
+        title: 'پرامپت‌ها',
         path: '/aeo/prompts',
         icon: <QuestionAnswer />,
       },
       {
-        title: 'Citations',
+        title: 'استنادها',
         path: '/aeo/citations',
         icon: <LinkIcon />,
       },
       {
-        title: 'Settings',
+        title: 'تنظیمات',
         path: '/aeo/settings',
         icon: <Tune />,
       },
     ],
   },
   {
-    title: 'Users',
+    title: 'کاربران',
     path: '/users',
     icon: <People />,
     permission: 'users.view',
@@ -209,45 +209,45 @@ const navItems: NavItem[] = [
     icon: <Settings />,
     children: [
       {
-        title: 'Profile',
+        title: 'پروفایل',
         path: '/settings/profile',
         icon: <AccountCircle />,
       },
       {
-        title: 'API Keys',
+        title: 'کلیدهای API',
         path: '/settings/api-keys',
         icon: <Key />,
       },
       {
-        title: 'Configuration',
+        title: 'پیکربندی',
         path: '/settings/configuration',
         icon: <Tune />,
         permission: 'settings.view',
       },
       {
         // The role list; the screens narrow the writes by roles.manage.
-        title: 'Roles',
+        title: 'نقش‌ها',
         path: '/settings/roles',
         icon: <People />,
         permission: 'roles.view',
       },
       {
         // Outbound webhook endpoints and the delivery log.
-        title: 'Webhooks',
+        title: 'وب‌هوک‌ها',
         path: '/settings/webhooks',
         icon: <LinkIcon />,
         permission: 'webhooks.manage',
       },
       {
         // OpenID Connect issuer, client and role mapping.
-        title: 'Single sign-on',
+        title: 'ورود یکپارچه',
         path: '/settings/sso',
         icon: <VpnKey />,
         permission: 'settings.sso_manage',
       },
       {
         // Password, single sign-on, refresh and API-key sign-in outcomes.
-        title: 'Sign-in audit',
+        title: 'گزارش ورود',
         path: '/settings/sign-in-audit',
         icon: <History />,
         permission: 'audit.sign_ins_view',
@@ -255,14 +255,14 @@ const navItems: NavItem[] = [
       {
         // Role changes and account activation, deactivation, erasure and
         // email changes (#552).
-        title: 'Role audit',
+        title: 'گزارش نقش‌ها',
         path: '/settings/role-audit',
         icon: <ManageHistory />,
         permission: 'roles.audit_view',
       },
       {
         // Bearer tokens for an identity provider's SCIM client (#490).
-        title: 'SCIM tokens',
+        title: 'توکن‌های SCIM',
         path: '/settings/scim-tokens',
         icon: <Sync />,
         permission: 'settings.scim_manage',
@@ -316,8 +316,8 @@ export const MainLayout: React.FC = () => {
 
   const drawer = (
     <Box>
-      <Toolbar>
-        <Typography variant="h6" noWrap component="div">
+      <Toolbar sx={{ minHeight: 76, px: 2.5, justifyContent: 'space-between' }}>
+        <Typography variant="h6" noWrap component="div" sx={{ fontWeight: 800, color: '#172033', letterSpacing: '-0.03em' }}>
           {productName}
         </Typography>
         <IconButton
@@ -328,7 +328,7 @@ export const MainLayout: React.FC = () => {
         </IconButton>
       </Toolbar>
       <Divider />
-      <List>
+      <List sx={{ px: 1.5, py: 2, '& .MuiListItemButton-root': { borderRadius: '10px', minHeight: 44, mb: 0.5, color: '#65718a', '&:hover': { bgcolor: '#f1f5ff', color: '#2563eb' } }, '& .MuiListItemButton-root.Mui-selected': { bgcolor: '#eaf1ff', color: '#2563eb' }, '& .MuiListItemIcon-root': { color: 'inherit', minWidth: 38 } }}>
         {navItems.map((item) => {
           if (!canViewNavItem(item)) return null;
 
@@ -388,14 +388,20 @@ export const MainLayout: React.FC = () => {
   // /quotes/:id/print prints its content alone. `displayPrint` is the MUI
   // system shorthand for exactly that media query.
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box dir="rtl" sx={{ display: 'flex', direction: 'rtl', minHeight: '100vh', bgcolor: '#f3f5f9' }}>
       <CssBaseline />
       <AppBar
         position="fixed"
         data-testid="app-bar"
         sx={{
+          right: { sm: `${drawerWidth}px` },
+          left: 0,
           width: { sm: `calc(100% - ${drawerWidth}px)` },
-          ml: { sm: `${drawerWidth}px` },
+          bgcolor: 'rgba(255,255,255,0.94)',
+          color: '#172033',
+          backdropFilter: 'blur(14px)',
+          borderBottom: '1px solid #e8ecf3',
+          boxShadow: 'none',
           displayPrint: 'none',
         }}
       >
@@ -460,11 +466,12 @@ export const MainLayout: React.FC = () => {
       </AppBar>
       <Box
         component="nav"
-        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 }, displayPrint: 'none' }}
+        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 }, order: 2, displayPrint: 'none' }}
         aria-label="mailbox folders"
       >
         <Drawer
           variant="temporary"
+          anchor="right"
           open={mobileOpen}
           onClose={handleDrawerToggle}
           ModalProps={{
@@ -473,18 +480,19 @@ export const MainLayout: React.FC = () => {
           sx={{
             display: { xs: 'block', sm: 'none' },
             displayPrint: 'none',
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth, right: 0, left: 'auto', bgcolor: '#fff', borderLeft: '1px solid #e8ecf3', borderRight: 0 },
           }}
         >
           {drawer}
         </Drawer>
         <Drawer
           variant="permanent"
+          anchor="right"
           data-testid="app-navigation"
           sx={{
             display: { xs: 'none', sm: 'block' },
             displayPrint: 'none',
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth, right: 0, left: 'auto', bgcolor: '#fff', borderLeft: '1px solid #e8ecf3', borderRight: 0 },
           }}
           open
         >
@@ -495,10 +503,14 @@ export const MainLayout: React.FC = () => {
         component="main"
         sx={{
           flexGrow: 1,
-          p: 3,
+          order: 1,
+          p: { xs: 2, md: 3 },
+          mr: { sm: `${drawerWidth}px` },
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           minHeight: '100vh',
-          backgroundColor: 'background.default',
+          backgroundColor: '#f3f5f9',
+          direction: 'rtl',
+          '& .MuiPaper-root': { border: '1px solid #e8ecf3', borderRadius: '16px', boxShadow: '0 4px 18px rgba(20, 35, 65, 0.035)' },
           '@media print': { p: 0, width: '100%', minHeight: 'auto', backgroundColor: 'transparent' },
         }}
       >
