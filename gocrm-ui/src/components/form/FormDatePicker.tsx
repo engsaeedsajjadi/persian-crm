@@ -114,8 +114,9 @@ export const FormDatePicker: React.FC<FormDatePickerProps> = ({ name, label, min
               onChange={(event) => {
                 const text = event.target.value;
                 const parsed = parsePersianDate(text);
-                if (parsed) onChange(parsed);
-                else if (text.trim() === '') onChange(null);
+                setDraft(text);
+                if (parsed) { onChange(parsed); setDraft(''); }
+                else if (text.trim() === '') { onChange(null); setDraft(''); }
               }}
               onBlur={() => { fieldOnBlur(); if (draft && !parsePersianDate(draft)) setDraft(''); }}
               error={!!error}
