@@ -68,14 +68,19 @@ export const localDateTimeToUTC = (value: string): string | undefined => {
  */
 export const formatPersianCalendarDate = (
   value: DateInput,
-  fallback: string = DATE_FALLBACK
+  fallback: string = DATE_FALLBACK,
+  options: Intl.DateTimeFormatOptions = {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    numberingSystem: 'arabext',
+  }
 ): string => {
   const date = toDate(value);
   if (!date) return fallback;
   return new Intl.DateTimeFormat('fa-IR-u-ca-persian', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
+    ...options,
+    calendar: 'persian',
     numberingSystem: 'arabext',
   }).format(date);
 };
