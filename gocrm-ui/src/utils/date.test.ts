@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { DATE_FALLBACK, formatDate, formatDistance, localDateTimeToUTC, toDate } from './date';
+import { DATE_FALLBACK, formatDate, formatDistance, formatPersianCalendarDate, localDateTimeToUTC, toDate } from './date';
 
 describe('toDate', () => {
   it('returns null for missing values', () => {
@@ -73,5 +73,19 @@ describe('localDateTimeToUTC', () => {
   it('answers undefined for an empty or unparseable value', () => {
     expect(localDateTimeToUTC('')).toBeUndefined();
     expect(localDateTimeToUTC('not a date')).toBeUndefined();
+  });
+});
+
+describe('formatPersianCalendarDate', () => {
+  it('formats a valid date with the Persian calendar and Persian digits', () => {
+    const value = formatPersianCalendarDate(new Date(2026, 11, 15));
+    expect(value).toMatch(/۱۴۰۵/);
+    expect(value).toMatch(/آذر/);
+  });
+
+  it('returns the fallback for missing and invalid values', () => {
+    expect(formatPersianCalendarDate(null)).toBe(DATE_FALLBACK);
+    expect(formatPersianCalendarDate('not-a-date')).toBe(DATE_FALLBACK);
+    expect(formatPersianCalendarDate(undefined, '')).toBe('');
   });
 });
