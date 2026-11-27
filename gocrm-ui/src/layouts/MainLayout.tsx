@@ -453,13 +453,13 @@ export const MainLayout: React.FC = () => {
               <ListItemIcon>
                 <AccountCircle fontSize="small" />
               </ListItemIcon>
-              Profile
+              پروفایل
             </MenuItem>
             <MenuItem onClick={handleLogout}>
               <ListItemIcon>
                 <Logout fontSize="small" />
               </ListItemIcon>
-              Logout
+              خروج از حساب
             </MenuItem>
           </Menu>
         </Toolbar>
@@ -505,13 +505,12 @@ export const MainLayout: React.FC = () => {
           flexGrow: 1,
           order: 1,
           p: { xs: 2, md: 3 },
-          mr: { sm: `${drawerWidth}px` },
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           minHeight: '100vh',
           backgroundColor: '#f3f5f9',
           direction: 'rtl',
           '& .MuiPaper-root': { border: '1px solid #e8ecf3', borderRadius: '16px', boxShadow: '0 4px 18px rgba(20, 35, 65, 0.035)' },
-          '@media print': { p: 0, width: '100%', minHeight: 'auto', backgroundColor: 'transparent' },
+          '@media print': { p: 0, mr: 0, width: '100%', minHeight: 'auto', backgroundColor: 'transparent' },
         }}
       >
         <Toolbar sx={{ displayPrint: 'none' }} />
