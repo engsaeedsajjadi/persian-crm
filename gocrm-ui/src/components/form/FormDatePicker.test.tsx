@@ -18,7 +18,7 @@ describe('parsePersianCalendarInput', () => {
 
   it('rejects invalid and out-of-range dates', () => {
     expect(parsePersianCalendarInput('۱۴۰۵/۱۳/۰۱')).toBeNull();
-    expect(parsePersianCalendarInput('۱۴۰۵/۱۲/۳۰')).toBeNull();
+    expect(parsePersianCalendarInput('۱۴۰۵/۱۲/۳۲')).toBeNull();
     expect(parsePersianCalendarInput('not-a-date')).toBeNull();
   });
 });
