@@ -99,7 +99,8 @@ export const FormDatePicker: React.FC<FormDatePickerProps> = ({ name, label, min
 
         const choose = (date: Date) => {
           onChange(new Date(date.getFullYear(), date.getMonth(), date.getDate()));
-          setDraft('');\n          setAnchor(null);
+          setDraft('');
+          setAnchor(null);
         };
         return (
           <>
@@ -115,7 +116,8 @@ export const FormDatePicker: React.FC<FormDatePickerProps> = ({ name, label, min
                 if (parsed) onChange(parsed);
                 else if (text.trim() === '') onChange(null);
               }}
-              onBlur={() => { if (draft && !parsePersianDate(draft)) setDraft(''); }}\n              error={!!error}
+              onBlur={() => { if (draft && !parsePersianDate(draft)) setDraft(''); }}
+              error={!!error}
               helperText={error?.message || helperText || 'تاریخ را به‌صورت سال/ماه/روز شمسی وارد کنید'}
               fullWidth={props.fullWidth ?? true}
               InputProps={{
