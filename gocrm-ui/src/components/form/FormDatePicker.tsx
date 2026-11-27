@@ -33,7 +33,7 @@ const normalizeDigits = (value: string): string =>
     .replace(/[٠-٩]/g, (digit) => String(latinDigits.indexOf(digit)))
     .replace(/[.-]/g, '/');
 
-const parsePersianDate = (value: string): Date | null => {
+export const parsePersianCalendarInput = (value: string): Date | null => {
   const match = /^(\d{4})\/(\d{1,2})\/(\d{1,2})$/.exec(normalizeDigits(value.trim()));
   if (!match) return null;
   const target = { year: Number(match[1]), month: Number(match[2]), day: Number(match[3]) };
@@ -113,12 +113,12 @@ export const FormDatePicker: React.FC<FormDatePickerProps> = ({ name, label, min
               placeholder="۱۴۰۵/۰۹/۰۶"
               onChange={(event) => {
                 const text = event.target.value;
-                const parsed = parsePersianDate(text);
+                const parsed = parsePersianCalendarInput(text);
                 setDraft(text);
                 if (parsed) { onChange(parsed); setDraft(''); }
                 else if (text.trim() === '') { onChange(null); setDraft(''); }
               }}
-              onBlur={() => { fieldOnBlur(); if (draft && !parsePersianDate(draft)) setDraft(''); }}
+              onBlur={() => { fieldOnBlur(); if (draft && !parsePersianCalendarInput(draft)) setDraft(''); }}
               error={!!error}
               helperText={error?.message || helperText || 'تاریخ را به‌صورت سال/ماه/روز شمسی وارد کنید'}
               fullWidth={props.fullWidth ?? true}
