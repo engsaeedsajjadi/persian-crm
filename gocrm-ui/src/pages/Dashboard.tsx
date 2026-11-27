@@ -52,14 +52,14 @@ interface StatCardProps {
 
 const StatCard: React.FC<StatCardProps> = ({ title, value, icon, color, trend }) => {
   return (
-    <Card>
-      <CardContent>
+    <Card sx={{ height: '100%', overflow: 'hidden', position: 'relative', '&:before': { content: '""', position: 'absolute', insetInlineStart: 0, top: 0, bottom: 0, width: 4, bgcolor: color, borderRadius: '0 4px 4px 0' } }}>
+      <CardContent sx={{ p: 2.5, '&:last-child': { pb: 2.5 } }}>
         <Box display="flex" alignItems="center" justifyContent="space-between">
           <Box>
             <Typography color="textSecondary" gutterBottom variant="body2">
               {title}
             </Typography>
-            <Typography variant="h4" component="div">
+            <Typography variant="h4" component="div" sx={{ fontWeight: 800, color: '#172033', fontVariantNumeric: 'tabular-nums' }}>
               {value}
             </Typography>
             {trend !== undefined && (
@@ -80,7 +80,7 @@ const StatCard: React.FC<StatCardProps> = ({ title, value, icon, color, trend })
               </Box>
             )}
           </Box>
-          <Avatar sx={{ bgcolor: color, width: 56, height: 56 }}>
+          <Avatar sx={{ bgcolor: color, width: 48, height: 48, borderRadius: 3, boxShadow: '0 6px 16px rgba(37,99,235,0.12)' }}>
             {icon}
           </Avatar>
         </Box>
@@ -89,7 +89,7 @@ const StatCard: React.FC<StatCardProps> = ({ title, value, icon, color, trend })
   );
 };
 
-export const داشبورد مدیریتی: React.FC = () => {
+export const Dashboard: React.FC = () => {
   const navigate = useNavigate();
   const { can } = usePermissions();
 
@@ -147,9 +147,17 @@ export const داشبورد مدیریتی: React.FC = () => {
 
   return (
     <Box>
-      <Typography variant="h4" gutterBottom>
-        داشبورد مدیریتی
-      </Typography>
+      <Box sx={{ display: 'flex', alignItems: { xs: 'flex-start', md: 'center' }, justifyContent: 'space-between', flexWrap: 'wrap', gap: 1.5, mb: 3 }}>
+        <Box>
+          <Typography variant="h4" gutterBottom sx={{ fontWeight: 800, letterSpacing: '-0.03em', color: '#172033' }}>
+            داشبورد مدیریتی
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            نمای کلی عملکرد فروش، مشتریان و فعالیت‌های تیم
+          </Typography>
+        </Box>
+        <Chip label="گزارش ماه جاری" variant="outlined" sx={{ bgcolor: '#fff', borderColor: '#e3e8f0', fontWeight: 600 }} />
+      </Box>
       
       {/* Stats Cards (hidden for customer-role users, who may not read them) */}
       {canViewStats && (
