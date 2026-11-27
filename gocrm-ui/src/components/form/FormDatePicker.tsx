@@ -71,7 +71,8 @@ const sameDay = (a: Date, b: Date) =>
 export const FormDatePicker: React.FC<FormDatePickerProps> = ({ name, label, minDate, maxDate, helperText, ...props }) => {
   const { control } = useFormContext();
   const [anchor, setAnchor] = useState<HTMLElement | null>(null);
-  const [visibleMonth, setVisibleMonth] = useState<[number, number] | null>(null);\n  const [draft, setDraft] = useState('');
+  const [visibleMonth, setVisibleMonth] = useState<[number, number] | null>(null);
+  const [draft, setDraft] = useState('');
   const open = Boolean(anchor);
 
   return (
