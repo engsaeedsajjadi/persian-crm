@@ -33,7 +33,7 @@ import { useConfiguration } from '@/hooks/useConfiguration';
 import { leadsApi, type LeadFilters } from '@/api/endpoints';
 import { leadConversionRefusal } from '@/api/endpoints/configurations';
 import type { Lead } from '@/types';
-import { formatDate } from '@/utils/date';
+import { formatPersianCalendarDate } from '@/utils/date';
 
 const statusOptions = [
   { value: '', label: 'All Statuses' },
@@ -236,7 +236,7 @@ export const Component: React.FC = () => {
       id: 'created_at',
       label: 'Created',
       minWidth: 120,
-      format: (value: string) => formatDate(value, 'MMM dd, yyyy'),
+      format: (value: string) => formatPersianCalendarDate(value),
     },
   ], []);
 
