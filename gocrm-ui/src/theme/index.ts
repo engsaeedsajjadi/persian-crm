@@ -8,17 +8,17 @@ const themeOptions: ThemeOptions = {
   palette: {
     mode: 'light',
     primary: {
-      main: '#1976d2',
-      light: '#42a5f5',
-      dark: '#1565c0',
+      main: '#2563eb',
+      light: '#60a5fa',
+      dark: '#1d4ed8',
     },
     secondary: {
-      main: '#dc004e',
-      light: '#e33371',
-      dark: '#9a0036',
+      main: '#84cc16',
+      light: '#a3e635',
+      dark: '#65a30d',
     },
     background: {
-      default: '#f5f5f5',
+      default: '#f3f5f9',
       paper: '#ffffff',
     },
     success: {
@@ -33,6 +33,8 @@ const themeOptions: ThemeOptions = {
   },
   typography: {
     fontFamily: [
+      'Vazirmatn',
+      'Tahoma',
       '-apple-system',
       'BlinkMacSystemFont',
       '"Segoe UI"',
@@ -46,7 +48,7 @@ const themeOptions: ThemeOptions = {
     ].join(','),
     h1: {
       fontSize: '2.5rem',
-      fontWeight: 500,
+      fontWeight: 700,
     },
     h2: {
       fontSize: '2rem',
@@ -69,15 +71,18 @@ const themeOptions: ThemeOptions = {
       fontWeight: 500,
     },
   },
+  direction: 'rtl',
   shape: {
-    borderRadius: 8,
+    borderRadius: 14,
   },
   components: {
     MuiButton: {
       styleOverrides: {
         root: {
           textTransform: 'none',
-          fontWeight: 500,
+          fontWeight: 600,
+          borderRadius: 10,
+          boxShadow: 'none',
         },
       },
     },
@@ -102,9 +107,11 @@ const themeOptions: ThemeOptions = {
     },
     MuiCard: {
       defaultProps: {
-        elevation: 1,
+        elevation: 0,
       },
+      styleOverrides: { root: { border: '1px solid #e8ecf3', borderRadius: 16, boxShadow: '0 4px 18px rgba(20, 35, 65, 0.035)' } },
     },
+    MuiPaper: { styleOverrides: { rounded: { borderRadius: 16 } } },
     MuiTableCell: {
       styleOverrides: {
         head: {
