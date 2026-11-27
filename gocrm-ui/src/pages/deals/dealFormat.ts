@@ -25,7 +25,7 @@ export const formatCalendarDate = (value: string | null | undefined, pattern = '
   if (!value) {
     return DATE_FALLBACK;
   }
-  // The API's Gregorian date-only string is parsed as local midnight, then rendered in the Persian calendar.\n  void pattern;\n  return formatPersianCalendarDate(parseISO(value));
+  // The API's Gregorian date-only string is parsed as local midnight, then rendered in the Persian calendar.\n  return formatPersianCalendarDate(parseISO(value), DATE_FALLBACK, {\n    day: 'numeric',\n    month: pattern.includes('MMM') ? 'short' : 'long',\n    ...(pattern.includes('yyyy') ? { year: 'numeric' as const } : {}),\n  });
 };
 
 /**
