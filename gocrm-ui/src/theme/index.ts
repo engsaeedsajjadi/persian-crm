@@ -1,4 +1,5 @@
 import { createTheme } from '@mui/material/styles';
+import { faIR } from '@mui/material/locale';
 import type { ThemeOptions } from '@mui/material/styles';
 import { DEFAULT_PRIMARY_COLOR, isDefaultPrimaryColor, resolvePrimaryColor } from './primaryColor';
 
@@ -82,7 +83,7 @@ export const createAppTheme = (colour: string = DEFAULT_PRIMARY_COLOR) => {
   const primary = isDefaultPrimaryColor(main)
     ? { main: DEFAULT_PRIMARY_COLOR, light: '#60a5fa', dark: '#1d4ed8' }
     : { main };
-  return createTheme({ ...themeOptions, palette: { ...themeOptions.palette, primary } });
+  return createTheme({ ...themeOptions, palette: { ...themeOptions.palette, primary } }, faIR);
 };
 
 export const theme = createAppTheme();
@@ -96,4 +97,4 @@ export const darkTheme = createTheme({
     text: { primary: '#f4f7fb', secondary: '#aab6c8' },
     primary: { main: '#90b4ff', light: '#b4ccff', dark: '#5d8df0' },
   },
-});
+}, faIR);
