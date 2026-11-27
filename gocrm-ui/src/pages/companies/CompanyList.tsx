@@ -10,7 +10,7 @@ import { usePermissions } from '@/hooks/usePermissions';
 import { useSnackbar } from '@/hooks/useSnackbar';
 import { companiesApi, type CompanyFilters } from '@/api/endpoints';
 import type { Company } from '@/types';
-import { formatDate } from '@/utils/date';
+import { formatPersianCalendarDate } from '@/utils/date';
 
 // Columns the API accepts in sort_by (its allowlist); the others render
 // without a sort header so a click can never produce a rejected request.
@@ -96,7 +96,7 @@ export const Component: React.FC = () => {
         id: 'created_at',
         label: 'Created',
         minWidth: 120,
-        format: (value: string) => formatDate(value, 'MMM dd, yyyy'),
+        format: (value: string) => formatPersianCalendarDate(value),
       },
     ],
     []
