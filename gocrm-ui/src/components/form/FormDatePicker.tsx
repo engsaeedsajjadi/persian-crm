@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { IconButton, Popover, Stack, TextField, Typography, Button, Box } from '@mui/material';
 import { ChevronLeft, ChevronRight, CalendarMonth } from '@mui/icons-material';
 import { Controller, useFormContext } from 'react-hook-form';
@@ -79,7 +79,7 @@ export const FormDatePicker: React.FC<FormDatePickerProps> = ({ name, label, min
     <Controller
       name={name}
       control={control}
-      render={({ field: { value, onChange, ...field }, fieldState: { error } }) => {
+      render={({ field: { value, onChange, onBlur: fieldOnBlur, ...field }, fieldState: { error } }) => {
         const selected = toDate(value as DateInput);
         const initial = selected ?? new Date();
         const activeMonth = visibleMonth ?? [partsOf(initial).year, partsOf(initial).month];
@@ -117,7 +117,7 @@ export const FormDatePicker: React.FC<FormDatePickerProps> = ({ name, label, min
                 if (parsed) onChange(parsed);
                 else if (text.trim() === '') onChange(null);
               }}
-              onBlur={() => { if (draft && !parsePersianDate(draft)) setDraft(''); }}
+              onBlur={() => { fieldOnBlur(); if (draft && !parsePersianDate(draft)) setDraft(''); }}
               error={!!error}
               helperText={error?.message || helperText || 'تاریخ را به‌صورت سال/ماه/روز شمسی وارد کنید'}
               fullWidth={props.fullWidth ?? true}
@@ -160,7 +160,7 @@ export const FormDatePicker: React.FC<FormDatePickerProps> = ({ name, label, min
                 </Box>
                 <Stack direction="row" justifyContent="space-between" sx={{ mt: 1 }}>
                   <Button size="small" onClick={() => choose(new Date())}>امروز</Button>
-                  <Button size="small" onClick={() => { onChange(null); setAnchor(null); }}>پاک کردن</Button>
+                  <Button size="small" onClick={() => { onChange(null); setDraft(''); setAnchor(null); }}>پاک کردن</Button>
                 </Stack>
               </Box>
             </Popover>
