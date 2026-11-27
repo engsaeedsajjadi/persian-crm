@@ -71,7 +71,7 @@ const sameDay = (a: Date, b: Date) =>
 export const FormDatePicker: React.FC<FormDatePickerProps> = ({ name, label, minDate, maxDate, helperText, ...props }) => {
   const { control } = useFormContext();
   const [anchor, setAnchor] = useState<HTMLElement | null>(null);
-  const [visibleMonth, setVisibleMonth] = useState<[number, number] | null>(null);
+  const [visibleMonth, setVisibleMonth] = useState<[number, number] | null>(null);\n  const [draft, setDraft] = useState('');
   const open = Boolean(anchor);
 
   return (
@@ -92,7 +92,7 @@ export const FormDatePicker: React.FC<FormDatePickerProps> = ({ name, label, min
           return day;
         });
         const monthTitle = monthFormatter.format(first);
-        const displayedValue = selected ? formatPersianCalendarDate(selected, '', {
+        const formattedValue = selected ? formatPersianCalendarDate(selected, '', {
           year: 'numeric', month: '2-digit', day: '2-digit',
         }).replace(/\u200e/g, '').replace(/-/g, '/') : '';
 
