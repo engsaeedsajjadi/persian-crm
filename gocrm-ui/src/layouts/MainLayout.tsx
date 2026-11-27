@@ -177,7 +177,7 @@ const navItems: NavItem[] = [
     permission: 'aeo.view',
     children: [
       {
-        title: 'Dashboard',
+        title: 'داشبورد',
         path: '/aeo',
         icon: <Timeline />,
       },
@@ -205,7 +205,7 @@ const navItems: NavItem[] = [
     permission: 'users.view',
   },
   {
-    title: 'Settings',
+    title: 'تنظیمات',
     icon: <Settings />,
     children: [
       {
