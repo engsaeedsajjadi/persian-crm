@@ -89,7 +89,7 @@ const StatCard: React.FC<StatCardProps> = ({ title, value, icon, color, trend })
   );
 };
 
-export const Dashboard: React.FC = () => {
+export const داشبورد مدیریتی: React.FC = () => {
   const navigate = useNavigate();
   const { can } = usePermissions();
 
@@ -148,7 +148,7 @@ export const Dashboard: React.FC = () => {
   return (
     <Box>
       <Typography variant="h4" gutterBottom>
-        Dashboard
+        داشبورد مدیریتی
       </Typography>
       
       {/* Stats Cards (hidden for customer-role users, who may not read them) */}
@@ -166,7 +166,7 @@ export const Dashboard: React.FC = () => {
             <Skeleton variant="rectangular" height={140} />
           ) : (
             <StatCard
-              title="Total Leads"
+              title="کل سرنخ‌ها"
               value={stats?.total_leads || 0}
               icon={<ContactPhone />}
               color="primary.main"
@@ -179,7 +179,7 @@ export const Dashboard: React.FC = () => {
             <Skeleton variant="rectangular" height={140} />
           ) : (
             <StatCard
-              title="Total Customers"
+              title="کل مشتریان"
               value={stats?.total_customers || 0}
               icon={<Business />}
               color="success.main"
@@ -192,7 +192,7 @@ export const Dashboard: React.FC = () => {
             <Skeleton variant="rectangular" height={140} />
           ) : (
             <StatCard
-              title="Open Tickets"
+              title="تیکت‌های باز"
               value={stats?.open_tickets || 0}
               icon={<Assignment />}
               color="warning.main"
@@ -205,7 +205,7 @@ export const Dashboard: React.FC = () => {
             <Skeleton variant="rectangular" height={140} />
           ) : (
             <StatCard
-              title="Pending Tasks"
+              title="پیگیری‌های در انتظار"
               value={stats?.pending_tasks || 0}
               icon={<Task />}
               color="info.main"
@@ -217,7 +217,7 @@ export const Dashboard: React.FC = () => {
             <Skeleton variant="rectangular" height={140} />
           ) : (
             <StatCard
-              title="Conversion Rate"
+              title="نرخ تبدیل"
               value={`${(stats?.conversion_rate || 0).toFixed(1)}%`}
               icon={<TrendingUp />}
               color="success.main"
@@ -248,10 +248,10 @@ export const Dashboard: React.FC = () => {
         </Box>
       )}
 
-      {/* Quick Actions Panel */}
+      {/* دسترسی سریع Panel */}
       <Paper sx={{ p: 2, mb: 3 }}>
         <Typography variant="h6" gutterBottom>
-          Quick Actions
+          دسترسی سریع
         </Typography>
         <Box display="flex" gap={2} flexWrap="wrap">
           <Button
@@ -259,7 +259,7 @@ export const Dashboard: React.FC = () => {
             startIcon={<PersonAddIcon />}
             onClick={() => navigate('/leads/new')}
           >
-            New Lead
+            ثبت سرنخ جدید
           </Button>
           {canCreateTicket && (
             <Button
@@ -268,7 +268,7 @@ export const Dashboard: React.FC = () => {
               startIcon={<TicketIcon />}
               onClick={() => navigate('/tickets/new')}
             >
-              New Ticket
+              ثبت تیکت
             </Button>
           )}
           <Button
@@ -277,7 +277,7 @@ export const Dashboard: React.FC = () => {
             startIcon={<NoteAddIcon />}
             onClick={() => navigate('/tasks/new')}
           >
-            New Task
+            ثبت پیگیری
           </Button>
           {canViewCustomers && (
             <Button
@@ -285,7 +285,7 @@ export const Dashboard: React.FC = () => {
               startIcon={<Business />}
               onClick={() => navigate('/customers')}
             >
-              View Customers
+              مشاهده مشتریان
             </Button>
           )}
         </Box>
@@ -295,11 +295,11 @@ export const Dashboard: React.FC = () => {
       {canViewStats && (
       <Stack spacing={3}>
         <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 3 }}>
-          {/* Sales Performance Chart */}
+          {/* عملکرد فروش Chart */}
           <Box sx={{ flex: { xs: '1 1 100%', md: '1 1 calc(66.666% - 12px)' } }}>
             <Paper sx={{ p: 2 }}>
               <Typography variant="h6" gutterBottom>
-                Sales Performance
+                عملکرد فروش
               </Typography>
               {salesLoading && <Skeleton variant="rectangular" height={300} />}
               {salesData && (
@@ -325,12 +325,12 @@ export const Dashboard: React.FC = () => {
             </Paper>
           </Box>
 
-          {/* Recent Activities and Upcoming Tasks */}
+          {/* فعالیت‌های اخیر and پیگیری‌های پیش‌رو */}
           <Box sx={{ flex: { xs: '1 1 100%', md: '1 1 calc(33.333% - 12px)' } }}>
             <Stack spacing={3} sx={{ height: '100%' }}>
               <Paper sx={{ p: 2 }}>
                 <Typography variant="h6" gutterBottom>
-                  Recent Activities
+                  فعالیت‌های اخیر
                 </Typography>
                 {activitiesLoading ? (
                   <Skeleton variant="rectangular" height={140} />
@@ -346,12 +346,12 @@ export const Dashboard: React.FC = () => {
                     ))}
                   </List>
                 ) : (
-                  <Typography color="text.secondary">Nothing yet</Typography>
+                  <Typography color="text.secondary">موردی برای نمایش وجود ندارد</Typography>
                 )}
               </Paper>
               <Paper sx={{ p: 2 }}>
                 <Typography variant="h6" gutterBottom>
-                  Upcoming Tasks
+                  پیگیری‌های پیش‌رو
                 </Typography>
                 {upcomingTasksLoading ? (
                   <Skeleton variant="rectangular" height={140} />
@@ -367,13 +367,13 @@ export const Dashboard: React.FC = () => {
                       >
                         <ListItemText
                           primary={task.title}
-                          secondary={`Due ${formatDate(task.due_date, 'MMM dd, yyyy')}`}
+                          secondary={`سررسید ${formatDate(task.due_date, 'MMM dd, yyyy')}`}
                         />
                       </ListItem>
                     ))}
                   </List>
                 ) : (
-                  <Typography color="text.secondary">Nothing yet</Typography>
+                  <Typography color="text.secondary">موردی برای نمایش وجود ندارد</Typography>
                 )}
               </Paper>
             </Stack>
