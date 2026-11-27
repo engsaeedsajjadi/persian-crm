@@ -408,7 +408,7 @@ export const MainLayout: React.FC = () => {
         <Toolbar>
           <IconButton
             color="inherit"
-            aria-label="open drawer"
+            aria-label="باز کردن منو"
             edge="start"
             onClick={handleDrawerToggle}
             sx={{ mr: 2, display: { sm: 'none' } }}
@@ -424,7 +424,7 @@ export const MainLayout: React.FC = () => {
           <IconButton
             onClick={handleMenuOpen}
             color="inherit"
-            aria-label="Account menu"
+            aria-label="منوی حساب کاربری"
             sx={{ ml: 2 }}
           >
             <Avatar sx={{ width: 32, height: 32 }}>
