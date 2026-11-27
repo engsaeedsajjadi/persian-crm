@@ -96,6 +96,7 @@ export const FormDatePicker: React.FC<FormDatePickerProps> = ({ name, label, min
         const formattedValue = selected ? formatPersianCalendarDate(selected, '', {
           year: 'numeric', month: '2-digit', day: '2-digit',
         }).replace(/\u200e/g, '').replace(/-/g, '/') : '';
+        const displayedValue = draft || formattedValue;
 
         const choose = (date: Date) => {
           onChange(new Date(date.getFullYear(), date.getMonth(), date.getDate()));
